@@ -28,7 +28,7 @@ The installation of ROS, Gazebo, etc. has been greatly simplified, as all the re
 
 1. Download [Docker](https://docs.docker.com/get-docker/) **(minimum version of docker-py: 5.0.3)**.
 
-2. Pull the current distribution of RoboticsBackend **(currently version 4.6.6)**:
+2. Pull the current distribution of RoboticsBackend **(currently version 4.6.12)**:
 
 ```bash
 docker pull jderobot/robotics-backend:latest
@@ -50,10 +50,10 @@ Windows users should choose WSL 2 backend Docker installation if possible, as it
 
     ![WSL integration](/RoboticsAcademy/assets/images/user_guide/wsl-integration-docker.png)
 
-4. Pull the current distribution of RoboticsBackend **(currently version 4.6.1)**:
+4. Pull the current distribution of RoboticsBackend **(currently version 4.6.12)**:
 
 ```bash
-docker pull jderobot/robotics-backend:4.6.1
+docker pull jderobot/robotics-backend:latest
 ```
 
 - In order to obtain optimal performance, Docker should be using multiple CPU cores. In case of Docker for Mac or Docker for Windows, the VM should be assigned a greater number of cores.
@@ -68,44 +68,27 @@ docker pull jderobot/robotics-backend:4.6.1
 # 2. How to launch a RoboticsBackend container?
 
 * Start a new docker container of the image and keep it running in the background:
+* The priority order is: NVIDIA -> Intel -> Only CPU
 
 ```bash
-docker run --rm -it -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
+docker run --rm -it $(nvidia-smi >/dev/null 2>&1 && echo "--gpus all" || echo "") --device /dev/dri -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
 ```
 
-## Enable GPU Acceleration
-ROS and Gazebo can be accelerated within RoboticsAcademy thanks to VirtualGL if a GPU is available.
+## Advanced Instructions on Linux
 
-### Linux
+- **NVIDIA:** For NVIDIA GPUs, acceleration can be achieved by [installing the nvidia-container-runtime package](https://docs.docker.com/config/containers/resource_constraints/#gpu), and then running the **auto** command above.
 
-
-- **Intel:** For Linux machines and Intel GPUs, acceleration can be achieved by simply setting the ```--device``` argument when running the Docker container:
+- **Only Intel:**
 ```bash
 docker run --rm -it --device /dev/dri -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
 ```
 
-- **NVIDIA:** For NVIDIA GPUs, acceleration can be achieved by [installing the nvidia-container-runtime package](https://docs.docker.com/config/containers/resource_constraints/#gpu), and then running the command above, but adding the ```--gpus all``` flag:
+- **Only CPU:** 
 ```bash
-docker run --rm -it --gpus all --device /dev/dri -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
+docker run --rm -it -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
 ```
 
-- **MULTIPLE GPUs:** If the PC has several GPUs, we can choose which one will be used by setting the ```DRI_NAME``` environment variable (e.g. ```card0``` or ```card1```)
-```bash
-docker run --rm -it --gpus all --device /dev/dri -e DRI_NAME=card1 -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
-```
-You can check the names associated with your graphic cards by running:
-```bash
- drm-info -j | jq 'with_entries(.value |= .driver.desc)'
-```
-You should get something like:
-```bash
-{
-  "/dev/dri/card1": "NVIDIA DRM driver",
-  "/dev/dri/card0": "Intel Graphics"
-}
-```
-
-### Windows
+## Windows
 For Windows machines, GPU acceleration to Docker can be implemented with WSL2 as per instructions given [here](https://docs.docker.com/desktop/gpu/#using-nvidia-gpus-with-wsl2).
 
 ### Tips for Docker
