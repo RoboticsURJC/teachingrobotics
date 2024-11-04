@@ -16,16 +16,9 @@ if not rclpy.ok():
     rclpy.init(args=sys.argv)
 
     ### HAL INIT ###
-    motor_node = MotorsNode("/cmd_vel", 4, 0.3)
-    odometry_node = OdometryNode("/odom")
-    laser_node = LaserNode("/roombaROS/laser/scan")
-    bumper_node = BumperNode(
-        [
-            "/roombaROS/events/right_bumper",
-            "/roombaROS/events/center_bumper",
-            "/roombaROS/events/left_bumper",
-        ]
-    )
+    motor_node = MotorsNode("/turtlebot3/cmd_vel", 4, 0.3)
+    odometry_node = OdometryNode("/turtlebot3/odom")
+    laser_node = LaserNode("/turtlebot3/laser/scan")
 
     # Spin nodes so that subscription callbacks load topic data
     executor = rclpy.executors.MultiThreadedExecutor()
@@ -55,13 +48,6 @@ def getPose3d():
         return odometry_node.getPose3d()
     except Exception as e:
         print(f"Exception in hal getPose3d {repr(e)}")        
-
-# Bumper
-def getBumperData():
-    try:
-        return bumper_node.getBumperData()
-    except Exception as e:
-        print(f"Exception in hal getBumper {repr(e)}")
 
 
 ### SETTERS ###
