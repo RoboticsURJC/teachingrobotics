@@ -6,7 +6,6 @@ import time
 from hal_interfaces.general.motors import MotorsNode
 from hal_interfaces.general.odometry import OdometryNode
 from hal_interfaces.general.laser import LaserNode
-from hal_interfaces.general.bumper import BumperNode
 
 
 freq = 30.0
@@ -24,7 +23,6 @@ if not rclpy.ok():
     executor = rclpy.executors.MultiThreadedExecutor()
     executor.add_node(odometry_node)
     executor.add_node(laser_node)
-    executor.add_node(bumper_node) 
     def __auto_spin() -> None:
         while rclpy.ok():
             executor.spin_once(timeout_sec=0)
