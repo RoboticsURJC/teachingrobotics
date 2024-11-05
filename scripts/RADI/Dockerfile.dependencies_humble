@@ -193,6 +193,7 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --packages-sel
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --packages-select as2_visualization"
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --packages-select as2_external_object_to_tf"
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --packages-select as2_geozones"
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --packages-select as2_ign_gazebo_assets"
 
 # Download and install OMPL library
 COPY install-ompl-ubuntu.sh /
