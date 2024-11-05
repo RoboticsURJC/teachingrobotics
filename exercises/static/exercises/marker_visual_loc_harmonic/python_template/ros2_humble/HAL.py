@@ -18,11 +18,13 @@ if not rclpy.ok():
     motor_node = MotorsNode("/turtlebot3/cmd_vel", 4, 0.3)
     odometry_node = OdometryNode("/turtlebot3/odom")
     laser_node = LaserNode("/turtlebot3/laser/scan")
+    camera_node = CameraNode("/turtlebot3/camera/image_raw")
 
     # Spin nodes so that subscription callbacks load topic data
     executor = rclpy.executors.MultiThreadedExecutor()
     executor.add_node(odometry_node)
     executor.add_node(laser_node)
+    executor.add_node(camera_node)
     def __auto_spin() -> None:
         while rclpy.ok():
             executor.spin_once(timeout_sec=0)
@@ -46,6 +48,13 @@ def getPose3d():
         return odometry_node.getPose3d()
     except Exception as e:
         print(f"Exception in hal getPose3d {repr(e)}")        
+
+# Camera
+def getImage():
+    image = camera_node.getImage()
+    while image == None:
+        image = camera_node.getImage()
+    return image.data
 
 
 ### SETTERS ###

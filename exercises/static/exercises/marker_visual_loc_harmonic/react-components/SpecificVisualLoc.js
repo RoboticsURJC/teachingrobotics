@@ -1,27 +1,21 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { draw, clearMap } from "Helpers/BirdEye";
+import { drawImage, drawLeftImage } from "./helpers/showImagesRescue";
 
-export default function SpecificVisualLoc() {
-  const guiCanvasRef = React.useRef();
-
+function SpecificRescuePeople(props) {
+  const [image, setImage] = React.useState(null);
   React.useEffect(() => {
     console.log("TestShowScreen subscribing to ['update'] events");
-
     const callback = (message) => {
-      const updateData = message.data.update;
-      // Lógica para manejar el mapa
-      if (updateData.map) {
-        const pose = updateData.map.substring(1, updateData.map.length - 1);
-        const content = pose.split(",").map(item => parseFloat(item));
+      console.log(message);
 
-        draw(
-          guiCanvasRef.current,
-          content[0],
-          content[1],
-          content[2],
-          content[3],
-        );
+      if (message.data.update.image_right) {
+        console.log("image_right");
+        drawImage(message.data.update);
+      }
+      if (message.data.update.image_left) {
+        console.log("image_left");
+        drawLeftImage(message.data.update);
       }
 
       // Send the ACK of the msg
@@ -42,46 +36,16 @@ export default function SpecificVisualLoc() {
     };
   }, []);
 
-  React.useEffect(() => {
-    const callback = (message) => {
-      console.log(message);
-      if (message.data.state === "visualization_ready") {
-        try {
-          clearMap(guiCanvasRef.current,)
-        } catch (error) {
-        }
-      }
-    }
-    window.RoboticsExerciseComponents.commsManager.subscribe(
-      [window.RoboticsExerciseComponents.commsManager.events.STATE_CHANGED],
-      callback
-    );
-
-    return () => {
-      console.log("TestShowScreen unsubscribing from ['state-changed'] events");
-      window.RoboticsExerciseComponents.commsManager.unsubscribe(
-        [window.RoboticsExerciseComponents.commsManager.events.STATE_CHANGED],
-        callback
-      );
-    };
-  }, [])
-
   return (
-    <canvas
-      ref={guiCanvasRef}
-      style={{
-        backgroundImage:
-          "url('/static/exercises/vacuum_cleaner_newmanager/resources/images/mapgrannyannie.png')",
-        border: "2px solid #d3d3d3",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%",
-        width: "100%",
-        height: "100%",
-      }}
-    />
+    <div style={{ display: "flex", width: "100%", height: "100%" }}>
+      <canvas id="gui_canvas_left"></canvas>
+      <canvas id="gui_canvas_right"></canvas>
+    </div>
   );
 }
 
-SpecificVisualLoc.propTypes = {
+SpecificRescuePeople.propTypes = {
   circuit: PropTypes.string,
 };
+
+export default SpecificRescuePeople;
