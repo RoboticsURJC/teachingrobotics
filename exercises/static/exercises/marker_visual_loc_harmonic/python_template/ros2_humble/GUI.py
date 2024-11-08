@@ -1,90 +1,96 @@
+import json
 import cv2
 import base64
-import json
 import threading
-import rclpy
+import time
+import numpy as np
+
 from gui_interfaces.general.measuring_threading_gui import MeasuringThreadingGUI
 from console_interfaces.general.console import start_console
-from hal_interfaces.general.odometry import OdometryNode
-from src.manager.ram_logging.log_manager import LogManager
-
-# Graphical User Interface Class
 
 class GUI(MeasuringThreadingGUI):
 
-    def __init__(self, host="ws://127.0.0.1:2303"):
-        super().__init__(host)
+    def __init__(self, host="ws://127.0.0.1:2303", freq=30.0):
 
-        self.image_to_be_shown = None
-        self.image_to_be_shown_updated = False
-        self.image_show_lock = threading.Lock()
+        # Execution control vars
+        self.out_period = 1.0 / freq
+        self.right_image = None
+        self.left_image = None
+        self.image_lock = threading.Lock()
+        self.ack = True
+        self.ack_frontend = True
+        self.ack_lock = threading.Lock()
+        self.running = True
 
-        # Payload vars
-        self.payload = {'image': '', 'map': ''}
-        # TODO: maybe move this to HAL and have it be hybrid
-        self.pose3d_object = OdometryNode("/odom")
-        executor = rclpy.executors.MultiThreadedExecutor()
-        executor.add_node(self.pose3d_object)
-        executor_thread = threading.Thread(target=executor.spin, daemon=True)
-        executor_thread.start()
+        self.host = host
+        self.msg = {"image_right": "", "image_left": ""}
+
+        self.ideal_cycle = 80
+        self.real_time_factor = 0
+        self.frequency_message = {'brain': '', 'gui': '', 'rtf': ''}
+        self.iteration_counter = 0
 
         self.start()
 
-    # Process incoming messages to the GUI
-    def gui_in_thread(self, ws, message):
+    # Process outcoming messages from the GUI
+    def gui_out_thread(self):
+        while self.running:
+            start_time = time.time()
 
-        # In this case, incoming msgs can only be acks
-        if "ack" in message:
+            # Check if a new image should be sent
             with self.ack_lock:
-                self.ack = True
-                self.ack_frontend = True
-        else:
-            LogManager.logger.error("Unsupported msg")
+                with self.image_lock:
+                    if self.ack:
+                        if np.any(self.left_image) or np.any(self.right_image):
+                            self.update_gui()
+                            self.ack = False
 
-    # Prepares and sends a map to the websocket server
+            # Maintain desired frequency
+            elapsed = time.time() - start_time
+            sleep_time = max(0, self.out_period - elapsed)
+            time.sleep(sleep_time)
+
+    # Prepares and send image to the websocket server
     def update_gui(self):
 
-        payload = self.payloadImage()
-        self.payload["image"] = json.dumps(payload)
-            
-        # Payload Map Message
-        pose = self.pose3d_object.getPose3d()
-        pos_message = str((pose.x,pose.y))
-        self.payload["map"] = pos_message
-        
-        message = json.dumps(self.payload)
+        if np.any(self.left_image):
+            _, encoded_left_image = cv2.imencode(".JPEG", self.left_image)
+            b64_left = base64.b64encode(encoded_left_image).decode("utf-8")
+            shape_left = self.left_image.shape
+        else:
+            b64_left = None
+            shape_left = 0
+
+        if np.any(self.right_image):
+            _, encoded_right_image = cv2.imencode(".JPEG", self.right_image)
+            b64_right = base64.b64encode(encoded_right_image).decode("utf-8")
+            shape_right = self.right_image.shape
+        else:
+            b64_right = None
+            shape_right = 0
+
+        payload_left = {
+            "image_left": b64_left,
+            "shape_left": shape_left,
+        }
+        payload_right = {
+            "image_right": b64_right,
+            "shape_right": shape_right,
+        }
+        self.msg["image_left"] = json.dumps(payload_left)
+        self.msg["image_right"] = json.dumps(payload_right)
+        message = json.dumps(self.msg)
         self.send_to_client(message)
 
-    # Function to prepare image payload
-    # Encodes the image as a JSON string and sends through the WS
-    def payloadImage(self):
-        with self.image_show_lock:
-            image_to_be_shown_updated = self.image_to_be_shown_updated
-            image_to_be_shown = self.image_to_be_shown
+    # Functions to set the next image to be sent
+    def setLeftImage(self, image):
+        with self.image_lock:
+            self.left_image = image
 
-        image = image_to_be_shown
-        payload = {'image': '', 'shape': ''}
+    def setRightImage(self, image):
+        with self.image_lock:
+            self.right_image = image
 
-        if not image_to_be_shown_updated:
-            return payload
-
-        shape = image.shape
-        frame = cv2.imencode('.JPEG', image)[1]
-        encoded_image = base64.b64encode(frame)
-
-        payload['image'] = encoded_image.decode('utf-8')
-        payload['shape'] = shape
-
-        with self.image_show_lock:
-            self.image_to_be_shown_updated = False
-
-        return payload
-    
-    # Function for student to call
-    def showImage(self, image):
-        with self.image_show_lock:
-            self.image_to_be_shown = image
-            self.image_to_be_shown_updated = True
 
 host = "ws://127.0.0.1:2303"
 gui = GUI(host)
@@ -92,6 +98,9 @@ gui = GUI(host)
 # Redirect the console
 start_console()
 
-# Expose to the user
+# Expose the user functions
 def showImage(image):
-    gui.showImage(image)
+    gui.setRightImage(image)
+
+def showLeftImage(image):
+    gui.setLeftImage(image)
