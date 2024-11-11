@@ -150,8 +150,8 @@ There are two robots to choose from:
 {% include gallery id="ackermannrobot" caption="Ackemann robot" %}
 
 * You can get the robot's mesh files from there: 
-  * Only robot: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/robot/ackermann_robot.dae
-  * Robot lifting a shelf: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/robot/ackermann_robot_lifting_shelf.dae
+  * Only robot: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/robot/ackermann_robot.dae
+  * Robot lifting a shelf: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/robot/ackermann_robot_lifting_shelf.dae
 
 {% include gallery id="ackermannrobotmesh" caption="Ackemann robot meshes" %}
 
@@ -160,18 +160,18 @@ There are two warehouses to choose from:
 #### Warehouse 1:
 * The warehouse size is 20.62 meters long and 13.6 meters wide.
 * The shelves coordinates from 1 to 6 are: (3.728, 0.579), (3.728, -1.242), (3.728, -3.039), (3.728, -4.827), (3.728, -6.781), (3.728, -8.665).
-* You can get the warehouse's map from there: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/images/map.png
+* You can get the warehouse's map from there: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/images/map.png
 
 {% include gallery id="warehouse1" caption="Warehouse 1" %}
 
 * You can get the warehouse's mesh file from there: 
-  * Warehouse without shelves: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/warehouse1.dae
-  * Shelf 1: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/shelf1.dae
-  * Shelf 2: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/shelf2.dae
-  * Shelf 3: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/shelf3.dae
-  * Shelf 4: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/shelf4.dae
-  * Shelf 5: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/shelf5.dae
-  * Shelf 6: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/meshes/world/warehouse1/shelf6.dae
+  * Warehouse without shelves: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/warehouse1.dae
+  * Shelf 1: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/shelf1.dae
+  * Shelf 2: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/shelf2.dae
+  * Shelf 3: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/shelf3.dae
+  * Shelf 4: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/shelf4.dae
+  * Shelf 5: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/shelf5.dae
+  * Shelf 6: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/meshes/world/warehouse1/shelf6.dae
 
 {% include gallery id="warehouse1mesh" caption="Warehouse 1 meshes" %}
 
@@ -181,7 +181,7 @@ There are two warehouses to choose from:
 * The warehouse size is 34 meters long and 22 meters wide.
 * The shelves coordinates from 1 to 9 are: (-8.5, -6.0), (-1.5, -6.0), (5.5, -6.0), (-8.5, 4.0), (-1.5, 4.0), (5.5, 4.0), (-1.0, -15.5), (-2, 11.5), (1.0, -15.0).
   * The separation distance between two neighboring shelves is 2 m on the x axis and 1.5 m on the y axis.
-* You can get the warehouse's map from there: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse/resources/images/map_2.png
+* You can get the warehouse's map from there: /RoboticsAcademy/exercises/static/exercises/amazon_warehouse_newmanager/resources/images/map_2.png
 
 {% include gallery id="warehouse2" caption="Warehouse 2" %}
 
