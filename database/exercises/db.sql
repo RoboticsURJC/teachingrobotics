@@ -95,6 +95,7 @@ COPY public.exercises (id, exercise_id, name, description, tags, status, templat
 9	3d_reconstruction	3D Reconstruction	3D Reconstruction exercise using React and RAM	{"tags": ["ROS2","COMPUTER VISION"]}	ACTIVE	RoboticsAcademy/exercises/static/exercises/3d_reconstruction/python_template/
 10	amazon_warehouse	Amazon Warehouse	Control an amazon-like robot to organize a warehouse	{"tags": "ROS2"}	ACTIVE	RoboticsAcademy/exercises/static/exercises/amazon_warehouse/python_template/
 11	montecarlo_laser_loc	Montecarlo Laser Loc	Calculate the position of the robot based on the	{"tags": "ROS2"}	ACTIVE	RoboticsAcademy/exercises/static/exercises/montecarlo_laser_loc/python_template/
+12	autoparking_lidar	Autoparking with Lidar	Autoparking with Lidar exercise	{"tags": ["AUTONOMOUS DRIVING","SERVICE ROBOTS","ROS2"] }	ACTIVE	RoboticsAcademy/exercises/static/exercises/autoparking_lidar/python_template/
 \.
 
 
@@ -129,6 +130,7 @@ COPY public.exercises_universes (id, exercise_id, universe_id) FROM stdin;
 24	1	25
 25	1	26
 26	1	27
+27	12	28
 \.
 
 
