@@ -72,6 +72,26 @@ function SpecificAmazonWarehouse(props) {
         setVehiclePose([convPose[1]*height,convPose[0]*width, ang]);
         addToTrail(convPose[1], convPose[0], base_trail);
       }
+
+      console.log(data)
+
+      if(data.image) {
+        let canvas = document.getElementById("exercise-img");
+          //Parse encoded image data and decode it
+        function decode_utf8(s) {
+            return decodeURIComponent(escape(s))
+        }
+        var image_data = JSON.parse(data.image),
+        source = decode_utf8(image_data.image),
+        shape = image_data.shape;
+
+        if(source !== ""){
+          setMap("data:image/png;base64," + source)
+          // canvas.src = "data:image/png;base64," + source;
+          // canvas.width = shape[1];
+          // canvas.height = shape[0];
+        }
+      }
     };
 
     const displayPath = (data) => {
@@ -127,8 +147,8 @@ function SpecificAmazonWarehouse(props) {
       console.log(message);
       if (message.data.state === "visualization_ready") {
         let world = context.mapSelected;
-        //TODO: check if it works on Unibotics
-        if (world === "amazon_warehouse_ros2_world2_ackermann" || world === "amazon_warehouse_ros2_world2" || world === "World 2") {
+        
+        if (world.includes("2")) {
           setMap(Map2)
           setMapSize(Map2Size)
         } else {
@@ -136,7 +156,7 @@ function SpecificAmazonWarehouse(props) {
           setMapSize(Map1Size)
         }
 
-        if (world.includes("ackermann")) {
+        if (world.includes("Ackermann")) {
           setVehicleType(1)
         } else {
           setVehicleType(0)

@@ -80,6 +80,12 @@ cd react_frontend/ && yarn install && yarn run dev
 
 Another way to solve it is to try to delete the generated image and do it again, you can follow the instructions in: [How to generate a radi](https://github.com/JdeRobot/RoboticsAcademy/blob/humble-devel/docs/generate_a_radi.md).
 
+### Using Docker run
+
+In order to use Robotics Academy with the docker run command it is necessary to generate a RADI. To see how to do it read [how to generate a RADI][].
+
+[how to generate a RADI]: ./generate_a_radi.md
+
 ### Using Docker compose
 
 Docker Compose is a tool for defining and running multi-container applications. It is the key to unlocking a streamlined and efficient development and deployment experience. Compose makes easy to manage services, networks, and volumes in a single, comprehensible YAML configuration file. Then, with a single command, you create and start all the services from your configuration file. In this YAML file we provide all the configurations needed for a smooth development experience, mainly ports and volumes. This method works by binding your local folder to the appropiate place inside a RoboticsBackend container, where all the dependencies are installed. 
@@ -233,150 +239,20 @@ There are a three python packages to help the development of a new exercise:
 
 For knowing how to use each package, please follow the links in the list above.
 
-Then, create the entry in db.sqlite3. A simple way to do this is by using the Django admin page:
-1)  Run ```python3.8 manage.py runserver``` or launch the docker as normal.
+Then, create the entry in database/exercise/db.sql. This can be achieved in 2 ways, changing it directly on the database or using Django Web Admin:
+1)  Launch the docker as normal.
 2)  Access http://127.0.0.1:7164/admin/ on a browser and log in with "user" and "pass".
-3)  Click on "add exercise" and fill the required fields specified below. Save and exit.
-4)  Commit db.sqlite3 changes.
+3)  Click on "add exercise" and fill the required fields specified below.
+4)  Open a shell in the universe_db docker: ```docker exec -it universe_db bash```
+4)  Dump the changes using ```./scripts/saveDb.sh```
 
 An exercise entry in the database must include the following data:
 - ```exercise id```: unique exercise identifier, must match the folder name
 - ```name```: name to display on the exercise list
 - ```description```: description to display on the exercise list
 - ```tags```: an exercise must include at least one ROS tag ("ROS1" or "ROS2"). The exercise will only be shown on the exercise list when the RoboticsBackend ROS version installed is listed in the tags. Tags are also used by the search bar.
-- ```state```: changes the state indicator (active = green; prototype = yellow; inactive = red)
+- ```status```: changes the state indicator (ACTIVE = green; PROTOTYPE = yellow; INACTIVE = red)
 - ```language```: programming language used
-- ```configuration```: available launch options to run the exercise written in JSON. If the generic react components are used, the exercise frontend will automatically request to launch the exercise using the first configuration that matches the key ROSX (X = ROS version detected by django). If the generic circuit selector react component is used, it will automatically display all the launch options items of the array that matches the key ROSX (X = ROS version detected by django), displaying the name stored under the key "name". Sample configuration JSON including 2 launch options for ROS1 and 1 launch option for ROS2:
-```
-{"ROS1":[
-{
-  "application": {
-    "type": "python",
-    "entry_point": "$EXERCISE_FOLDER/entry_point/exercise.py",
-    "params": { "circuit": "default"}
-
-  },
-  "launch": {
-    "0": {
-      "type": "module",
-      "module": "ros_api",
-      "resource_folders": [
-        "$EXERCISE_FOLDER/launch/ros1_noetic"
-      ],
-      "model_folders": [
-        "$CUSTOM_ROBOTS_FOLDER/f1/models"
-      ],
-      "plugin_folders": [
-      ],
-      "parameters": [],
-      "launch_file": "$EXERCISE_FOLDER/launch/ros1_noetic/simple_line_follower_ros_headless_default.launch",
-      "name": "Default"
-    },
-    "1": {
-      "type": "module",
-      "module": "console",
-      "display": ":1",
-      "internal_port": 5901,
-      "external_port": 1108
-    },
-    "2": {
-      "type": "module",
-      "module": "gazebo_view",
-      "display": ":0",
-      "internal_port": 5900,
-      "external_port": 6080,
-      "height": 768,
-      "width": 1024
-    }
-  }
-},
-{
-  "application": {
-    "type": "python",
-    "entry_point": "$EXERCISE_FOLDER/entry_point/exercise.py",
-    "params": { "circuit": "default"}
-
-  },
-  "launch": {
-    "0": {
-      "type": "module",
-      "module": "ros_api",
-      "resource_folders": [
-        "$EXERCISE_FOLDER/launch/ros1_noetic"
-      ],
-      "model_folders": [
-        "$CUSTOM_ROBOTS_FOLDER/f1/models"
-      ],
-      "plugin_folders": [
-      ],
-      "parameters": [],
-      "launch_file": "$EXERCISE_FOLDER/launch/ros1_noetic/simple_line_follower_ros_headless_nbg.launch",
-      "name": "Nürburgring"
-    },
-    "1": {
-      "type": "module",
-      "module": "console",
-      "display": ":1",
-      "internal_port": 5901,
-      "external_port": 1108
-    },
-    "2": {
-      "type": "module",
-      "module": "gazebo_view",
-      "display": ":0",
-      "internal_port": 5900,
-      "external_port": 6080,
-      "height": 768,
-      "width": 1024
-    }
-  }
-}],
-"ROS2":
-[
-{
-  "application": {
-    "type": "python",
-    "entry_point": "$EXERCISE_FOLDER/entry_point/ros2_humble/exercise.py",
-    "params": { "circuit": "default"}
-  },
-  "launch": {
-    "0": {
-      "type": "module",
-      "module": "ros2_api",
-      "resource_folders": [
-        "$EXERCISE_FOLDER/launch/ros2_humble"
-      ],
-      "model_folders": [
-        "$CUSTOM_ROBOTS_FOLDER/f1/models"
-      ],
-      "plugin_folders": [
-      ],
-      "parameters": [],      
-      "launch_file": "$EXERCISE_FOLDER/launch/ros2_humble/simple_line_follower_default.launch.py",
-      "name": "Default"
-
-    },
-    "1": {
-      "type": "module",
-      "module": "console_ros2",
-      "display": ":1",
-      "internal_port": 5901,
-      "external_port": 1108
-    },
-    "2": {
-      "type": "module",
-      "module": "gazebo_view_ros2",
-      "display": ":0",
-      "internal_port": 5900,
-      "external_port": 6080,
-      "height": 768,
-      "width": 1024
-    }
-  }
-}
-]
-}
-```
 
 <a name="How-to-update-static-files-version"></a>
 ## How to update static files version
