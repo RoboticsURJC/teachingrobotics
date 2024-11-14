@@ -135,7 +135,8 @@ sec = HAL.getSimTime().sec + HAL.getSimTime().nanosec / 1000000000
 * `HAL.lift()` - to lift the platform
 * `HAL.putdown()` - to put down the platform
 * `GUI.showPath(array)` - shows a path on the map. The parameter should be a 2D array containing each of the points of the path
-* `GUI.getMap(url)` - returns a numpy array with the image data in a 3 dimensional array (R, G, B, A). The URLs of the worlds are in the **Supporting information** section.
+* `GUI.getMap(url)` - returns a numpy array with the image data in a 3 dimensional array (R, G, B) of values between 0-1. The URLs of the worlds are in the **Supporting information** section.
+* `GUI.showNumpy(mat)` - Displays the matrix sent. Accepts an uint8 numpy matrix, values ranging from 0 to 127 for grayscale and values 128 to 134 for predetermined colors (128 = red; 129 = orange; 130 = yellow; 131 = green; 132 = blue; 133 = indigo; 134 = violet).
 
 ## Supporting information
 There are two robots to choose from:
