@@ -22,7 +22,7 @@ services:
       retries: 20
 
   robotics-academy:
-    image: jderobot/robotics-backend:test
+    image: jderobot/robotics-backend:bt-cafe
     container_name: developer-container
     command:  "-s"
     ports:
