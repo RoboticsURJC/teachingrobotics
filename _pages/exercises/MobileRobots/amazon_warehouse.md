@@ -138,6 +138,40 @@ sec = HAL.getSimTime().sec + HAL.getSimTime().nanosec / 1000000000
 * `GUI.getMap(url)` - returns a numpy array with the image data in a 3 dimensional array (R, G, B) of values between 0-1. The URLs of the worlds are in the **Supporting information** section.
 * `GUI.showNumpy(mat)` - Displays the matrix sent. Accepts an uint8 numpy matrix, values ranging from 0 to 127 for grayscale and values 128 to 134 for predetermined colors (128 = red; 129 = orange; 130 = yellow; 131 = green; 132 = blue; 133 = indigo; 134 = violet).
 
+To reset the map to the original state you can use the next function with **orig_map** being the original map:
+
+```python
+def reset_map(orig_map):
+    rows, cols, _ = orig_map.shape
+    old_map = np.zeros((rows, cols), dtype=np.uint8)
+    for i in range(rows):
+        for j in range(cols):
+            old_map[i, j] = np.average(orig_map[i, j]) * 127
+
+    GUI.showNumpy(old_map)
+```
+
+To draw more complex shapes you can use the following opencv2 functions with mat being the matrix you will use to call `GUI.showNumpy(mat)`:
+
+* Draw a line: `cv2.line(mat, (start_x, start_y), (end_x, end_y), color, thickness)`
+* Draw a circle: `cv2.circle(mat, (center_x, center_y), radius, color, thickness)`
+* Draw a rectangle: `cv2.rectangle(mat, (start_x, start_y), (end_x, end_y), color, thickness)`
+* Write text: `image = cv2.putText(mat, text, (start_x, start_y), font, fontScale, color, thickness, cv2.LINE_AA)`
+
+See the example below on how to use them:
+
+```python
+    rows, cols, _ = orig_map.shape
+    mat = np.zeros((rows, cols), dtype=np.uint8)
+
+    cv2.circle(mat, (100, 100), 40, 50, 5)
+    cv2.line(mat, (100, 100), (200, 200), 129, 2)
+    cv2.rectangle(mat, (100, 100), (200, 200), 128, 2)
+    cv2.putText(mat, "Text", (200, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, 129, 2, cv2.LINE_AA)
+    GUI.showNumpy(mat)
+```
+
+
 ## Supporting information
 There are two robots to choose from:
 #### Holonomic robot:
