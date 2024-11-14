@@ -4,7 +4,7 @@ import time
 
 from hal_interfaces.general.motors import MotorsNode
 from hal_interfaces.general.odometry import OdometryNode
-from hal_interfaces.general.laser import LaserNode
+from hal_interfaces.general.lidar import LidarNode
 
 # Hardware Abstraction Layer
 IMG_WIDTH = 320
@@ -20,16 +20,12 @@ if not rclpy.ok():
     ### HAL INIT ###
     motor_node = MotorsNode("/prius_autoparking/cmd_vel", 4, 0.3)
     odometry_node = OdometryNode("/prius_autoparking/odom")
-    laser_front_node = LaserNode("/prius_autoparking/scan_front")
-    laser_right_node = LaserNode("/prius_autoparking/scan_side")
-    laser_back_node = LaserNode("/prius_autoparking/scan_back")
+    lidar_node = LidarNode("/prius_autoparking/cloud")
 
     # Spin nodes so that subscription callbacks load topic data
     executor = rclpy.executors.MultiThreadedExecutor()
     executor.add_node(odometry_node)
-    executor.add_node(laser_front_node)
-    executor.add_node(laser_right_node)
-    executor.add_node(laser_back_node)
+    executor.add_node(lidar_node)
     def __auto_spin() -> None:
         while rclpy.ok():
             executor.spin_once(timeout_sec=0)
@@ -41,29 +37,13 @@ if not rclpy.ok():
 def getPose3d():
     return odometry_node.getPose3d()
 
-def getFrontLaserData():
-    laser = laser_front_node.getLaserData()
-    timestamp = laser.timeStamp
+def getLidarData():
+    lidar = lidar_node.getLaserData()
+    timestamp = lidar.timeStamp
     while timestamp == 0.0:
-        laser = laser_front_node.getLaserData()
-        timestamp = laser.timeStamp
-    return laser
-
-def getRightLaserData():
-    laser = laser_right_node.getLaserData()
-    timestamp = laser.timeStamp
-    while timestamp == 0.0:
-        laser = laser_right_node.getLaserData()
-        timestamp = laser.timeStamp
-    return laser
-
-def getBackLaserData():
-    laser = laser_back_node.getLaserData()
-    timestamp = laser.timeStamp
-    while timestamp == 0.0:
-        laser = laser_back_node.getLaserData()
-        timestamp = laser.timeStamp
-    return laser
+        lidar = lidar_node.getLaserData()
+        timestamp = lidar.timeStamp
+    return lidar
 
 def setV(velocity):
     motor_node.sendV(float(velocity))

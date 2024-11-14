@@ -3,7 +3,7 @@ import json
 from gui_interfaces.general.measuring_threading_gui import MeasuringThreadingGUI
 from console_interfaces.general.console import start_console
 from map import Map
-from HAL import getFrontLaserData, getRightLaserData, getBackLaserData
+from HAL import getLidarData
 
 # Graphical User Interface Class
 
@@ -14,7 +14,7 @@ class GUI(MeasuringThreadingGUI):
 
         # Payload vars
         self.payload = {'map': ''}
-        self.map = Map(getFrontLaserData, getRightLaserData, getBackLaserData)
+        self.map = Map(getLidarData)
 
         self.start()
 
