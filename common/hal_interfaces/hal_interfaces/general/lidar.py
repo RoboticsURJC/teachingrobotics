@@ -78,9 +78,9 @@ class LidarNode(Node):
     def __init__(self, topic):
         super().__init__("lidar_node")
         self.sub = self.create_subscription(
-            sensor_msgs.msg.LidarScan, topic, self.listener_callback, 10
+            sensor_msgs.msg.PointCloud2, topic, self.listener_callback, 10
         )
-        self.last_scan_ = sensor_msgs.msg.LidarScan()
+        self.last_scan_ = sensor_msgs.msg.PointCloud2()
 
     def listener_callback(self, scan):
         self.last_scan_ = scan

@@ -38,10 +38,10 @@ def getPose3d():
     return odometry_node.getPose3d()
 
 def getLidarData():
-    lidar = lidar_node.getLaserData()
+    lidar = lidar_node.getLidarData()
     timestamp = lidar.timeStamp
     while timestamp == 0.0:
-        lidar = lidar_node.getLaserData()
+        lidar = lidar_node.getLidarData()
         timestamp = lidar.timeStamp
     return lidar
 
