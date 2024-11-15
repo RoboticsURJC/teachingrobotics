@@ -214,7 +214,7 @@ Being such a simple algorithm, it is not expected to work all the time. The maxi
 ## Contributors
 
 - Contributors: [Vanessa Fernandez](https://github.com/vmartinezf), [Jose María Cañas](https://github.com/jmplaza), [Carlos Awadallah](https://github.com/cawadall), [Nacho Arranz](https://github.com/igarag).
-- Maintained by [Sakshay Mahna](https://github.com/SakshayMahna).
+- Maintained by [Sakshay Mahna](https://github.com/SakshayMahna), [Javier Izquierdo](https://github.com/javizqh).
 
 <!--
 Another possible solution is to implement the logic of a navigation algorithm for an autonomous vacuum with autolocation.

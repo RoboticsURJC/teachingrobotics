@@ -309,8 +309,8 @@ Global Navigation teletaxi with OMPL:
 
 ## Contributors
 
-- Contributors: [Alberto Martín](https://github.com/almartinflorido), [Francisco Rivas](https://github.com/chanfr), [Francisco Pérez](https://github.com/fqez), [Jose María Cañas](https://github.com/jmplaza), [Nacho Arranz](https://github.com/igarag), [Nay Oo Lwin](https://github.com/NayOoLwin5).
-- Maintained by [Sakshay Mahna](https://github.com/SakshayMahna).
+- Contributors: [Alberto Martín](https://github.com/almartinflorido), [Francisco Rivas](https://github.com/chanfr), [Francisco Pérez](https://github.com/fqez), [Jose María Cañas](https://github.com/jmplaza), [Nacho Arranz](https://github.com/igarag), [Nay Oo Lwin](https://github.com/NayOoLwin5), [Javier Izquierdo](https://github.com/javizqh).
+- Maintained by [Sakshay Mahna](https://github.com/SakshayMahna), [Javier Izquierdo](https://github.com/javizqh).
 
 ## References
 1. [https://en.wikipedia.org/wiki/Motion_planning](https://en.wikipedia.org/wiki/Motion_planning)

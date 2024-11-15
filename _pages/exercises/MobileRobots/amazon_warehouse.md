@@ -450,7 +450,7 @@ The library offers the possibility to set an optimization objective, which could
 {% include youtubePlayer.html id=page.solution3 %}
 
 - Contributors: [Lucía Lishan Chen Huang](https://github.com/lu164), [Blanca Soria Rubio](https://github.com/Blancasr), [Jose María Cañas](https://github.com/jmplaza)
-- Maintained by [Lucía Lishan Chen Huang](https://github.com/lu164).
+- Maintained by [Lucía Lishan Chen Huang](https://github.com/lu164), [Javier Izquierdo](https://github.com/javizqh).
 
 ## References
 

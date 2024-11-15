@@ -237,7 +237,7 @@ As a final note, quite a lot of tips and tricks regarding implementation have be
 ## Contributors
 
 - Contributors: [Vanessa Fernandez](https://github.com/vmartinezf), [Jose María Cañas](https://gsyc.urjc.es/jmplaza/), [Carlos Awadallah](https://github.com/cawadall), [Nacho Arranz](https://github.com/igarag).
-- Maintained by [Sakshay Mahna](https://github.com/SakshayMahna).
+- Maintained by [Sakshay Mahna](https://github.com/SakshayMahna), [Javier Izquierdo](https://github.com/javizqh).
 
 ## References
 The major credit for this coverage algorithm goes to [Jose María Cañas](https://github.com/jmplaza) and his student [Irene Lope](https://github.com/ilope236).
