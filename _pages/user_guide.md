@@ -28,7 +28,7 @@ The installation of ROS, Gazebo, etc. has been greatly simplified, as all the re
 
 1. Download [Docker](https://docs.docker.com/get-docker/) **(minimum version of docker-py: 5.0.3)**.
 
-2. Pull the current distribution of RoboticsBackend **(currently version 4.6.12)**:
+2. Pull the current distribution of RoboticsBackend **(currently version 4.6.14)**:
 
 ```bash
 docker pull jderobot/robotics-backend:latest
