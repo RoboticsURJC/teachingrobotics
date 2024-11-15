@@ -82,5 +82,5 @@ It is composed of 180 pairs of values: (0-180º distance in millimeters)
 
 ## Contributors
 
-- Contributors: Vanessa Fernández Martínez
-- Maintained by Vanessa Fernández Martínez
+- Contributors: Vanessa Fernández Martínez, [Javier Izquierdo](https://github.com/javizqh).
+- Maintained by Vanessa Fernández Martínez, [Javier Izquierdo](https://github.com/javizqh).
