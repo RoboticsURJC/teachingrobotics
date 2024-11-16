@@ -51,6 +51,12 @@ if [ -d compose_cfg ]; then
 else
   # Online mode: download all databases
   curl -sL $base_path_online$compose_file.yaml -o docker-compose.yaml
+  # Create folders
+  mkdir -p database
+  mkdir -p database/exercises
+  mkdir -p RoboticsInfrastructure
+  mkdir -p RoboticsInfrastructure/database
+  # Download Db
   curl -sL $RA_ex_db_path_online -o database/exercises/db.sql
   curl -sL $RA_django_db_path_online -o database/django_auth.sql
   curl -sL $RI_db_path_online -o RoboticsInfrastructure/database/universes.sql
