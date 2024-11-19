@@ -31,7 +31,7 @@ class GUI(MeasuringThreadingGUI):
 
         self.host = host
         # self.msg = {"image_right": "", "image_left": ""}
-        self.msg = {"image_right": "", "real_pose": "","noisy_pose": "", "estimate_pose": "" }
+        self.payload = {"image_right": "", "real_pose": "","noisy_pose": "", "estimate_pose": "" }
 
         self.ideal_cycle = 80
         self.real_time_factor = 0
