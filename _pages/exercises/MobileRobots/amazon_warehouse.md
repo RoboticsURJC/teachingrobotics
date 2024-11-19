@@ -40,14 +40,14 @@ ackermannrobotmesh:
     image_path: /assets/images/exercises/amazon_warehouse/ackermann_robot_dae.png
     alt: "Ackermann robot mesh"
     title: "Ackermann robot mesh"
-  - url: /assets/images/exercises/amazon_warehouse/ackermann_robot_shelf_dae.png
-    image_path: /assets/images/exercises/amazon_warehouse/ackermann_robot_shelf_dae.png
+  - url: /assets/images/exercises/amazon_warehouse/ackemann_robot_shelf_dae.png
+    image_path: /assets/images/exercises/amazon_warehouse/ackemann_robot_shelf_dae.png
     alt: "Ackermann robot shelf mesh"
     title: "Ackermann robot shelf mesh"
 
 warehouse1:
-  - url: /assets/images/exercises/amazon_warehouse/ackermann_robot.png
-    image_path: /assets/images/exercises/amazon_warehouse/ackermann_robot.png
+  - url: /assets/images/exercises/amazon_warehouse/warehouse1.png
+    image_path: /assets/images/exercises/amazon_warehouse/warehouse1.png
     alt: "Ackermann logistics robot"
     title: "Ackermann logistics robot"
 
