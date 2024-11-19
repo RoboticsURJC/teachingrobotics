@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import random
 from math import pi as pi
 import cv2
 
@@ -59,6 +60,14 @@ class Map:
         x = scale_x * x + offset_x
 
         return x, y
+
+    def getRobotCoordinatesWithNoise(self, noise_std=2.0):
+        x, y = self.getRobotCoordinates()
+        
+        x_noisy = x + random.gauss(0, noise_std)
+        y_noisy = y + random.gauss(0, noise_std)
+
+        return x_noisy, y_noisy
 
     def getRobotAngle(self):
         pose = self.pose_getter()
