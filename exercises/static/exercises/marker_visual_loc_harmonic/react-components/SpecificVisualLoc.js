@@ -14,7 +14,7 @@ function SpecificVisualLoc(props) {
         drawImage(message.data.update);
       }
       if (message.data.update.image_left) {
-        console.log("image_left");
+        console.log("real_pose");
         drawLeftImage(message.data.update);
       }
 
