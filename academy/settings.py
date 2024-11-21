@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'academy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'academy_db' ,
+        'USER': 'user-dev',
+        'PASSWORD': 'robotics-academy-dev',
+        'HOST': 'my-postgres',
+        'PORT': '5432',
     }
 }
 

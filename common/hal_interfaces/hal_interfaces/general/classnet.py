@@ -1,11 +1,8 @@
 import cv2
-from ament_index_python.packages import get_package_share_directory
 import os
 
-package_dir = get_package_share_directory("hal_interfaces")
-
-FROZEN_GRAPH = os.path.join(package_dir, "models", "ssd_inception_v2_coco.pb")
-PB_TXT = os.path.join(package_dir, "models", "ssd_inception_v2_coco.pbtxt")
+FROZEN_GRAPH = os.path.join("/resources", "models", "ssd_inception_v2_coco.pb")
+PB_TXT = os.path.join("/resources", "models", "ssd_inception_v2_coco.pbtxt")
 SIZE = 300
 
 LABEL_MAP = {

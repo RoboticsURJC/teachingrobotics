@@ -5,7 +5,12 @@ import rclpy
 import threading
 import time
 import websocket
-from src.manager.ram_logging.log_manager import LogManager
+
+import sys
+
+sys.path.insert(0, '/RoboticsApplicationManager')
+
+from manager.ram_logging.log_manager import LogManager
 
 
 class MeasuringThreadingGUI:

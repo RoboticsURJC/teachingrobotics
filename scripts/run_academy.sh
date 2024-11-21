@@ -7,7 +7,6 @@ base_path_offline="compose_cfg/"
 compose_file="user_humble_cpu"
 base_path_online="https://raw.githubusercontent.com/JdeRobot/RoboticsAcademy/humble-devel/compose_cfg/"
 
-
 # Function to clean up the containers
 cleanup() {
   echo "Cleaning up..."
@@ -43,8 +42,10 @@ fi
 
 # Check the mode
 if [ -d compose_cfg ]; then
+  # Offline mode
   cp $base_path_offline$compose_file.yaml docker-compose.yaml
 else
+  # Online mode
   curl -sL $base_path_online$compose_file.yaml -o docker-compose.yaml
 fi
 

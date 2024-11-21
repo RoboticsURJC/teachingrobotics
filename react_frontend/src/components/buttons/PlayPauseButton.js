@@ -42,10 +42,15 @@ const PlayPause = (props) => {
     });
   }, []);
 
-  const play = () => {
+  const play = async () => {
     setLoading(true);
-    const editorCode = RoboticsReactComponents.CodeEditor.getCode();
-    if (!editorChanged && applicationPaused) {
+    let editorCode = "";
+    editorCode = RoboticsReactComponents.CodeEditor.getCode();
+
+    if (applicationPaused) {
+      if (editorChanged) {
+        await resetCode(editorCode);
+      }
       commsManager.resume();
     } else {
       runCode(editorCode);
@@ -54,18 +59,39 @@ const PlayPause = (props) => {
     setEditorChanged(false);
   };
 
-  const runCode = (code) => {
+  const resetCode = async (code) => {
     setLoading(true);
-    const errorMessage = "Syntax or dependency error, check details on the console.\n";
+    const errorMessage =
+      "Syntax or dependency error, check details on the console.\n";
+    
+    const serverBase = `${document.location.protocol}//${document.location.hostname}:7164`;
+    let requestUrl = `${serverBase}/exercises/exercise/${config[0].exercise_id}/user_code_zip`;
 
-    window.RoboticsExerciseComponents.commsManager
-      .terminate_application()
-      .then(() => {
+    try {
+      const response = await fetch(requestUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: code
+        }),
+      });
+
+      const zipBlob = await response.blob();
+
+      if (!response.ok) {
+        console.error("Error formatting code:", zip.error);
+        return 
+      }
+      var reader = new FileReader();
+      reader.readAsDataURL(zipBlob);
+      reader.onloadend = async function () {
+        // Get the zip in base64
+        var base64data = reader.result;
         window.RoboticsExerciseComponents.commsManager
           .run({
-            code: code,
-            template: config[0].template,
-            exercise_id: config[0].exercise_id,
+            code: base64data
           })
           .then(() => {})
           .catch((response) => {
@@ -73,11 +99,72 @@ const PlayPause = (props) => {
               "\\n"
             );
             RoboticsReactComponents.MessageSystem.Alert.showAlert(
-              errorMessage, "error"
+              errorMessage,
+              "error"
             );
             console.log(`Received linter message ·${linterMessage}`);
           });
+      };
+    } catch (error) {
+      console.log(error);
+      return 
+    }
+  }
+
+  const runCode = async (code) => {
+    setLoading(true);
+    const errorMessage =
+      "Syntax or dependency error, check details on the console.\n";
+    
+    const serverBase = `${document.location.protocol}//${document.location.hostname}:7164`;
+    let requestUrl = `${serverBase}/exercises/exercise/${config[0].exercise_id}/user_code_zip`;
+
+    try {
+      const response = await fetch(requestUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: code
+        }),
       });
+
+      const zipBlob = await response.blob();
+
+      if (!response.ok) {
+        console.error("Error formatting code:", zip.error);
+        return 
+      }
+      var reader = new FileReader();
+      reader.readAsDataURL(zipBlob);
+      reader.onloadend = async function () {
+        // Get the zip in base64
+        var base64data = reader.result;
+        window.RoboticsExerciseComponents.commsManager
+          .terminate_application()
+          .then(() => {
+            window.RoboticsExerciseComponents.commsManager
+              .run({
+                code: base64data
+              })
+              .then(() => {})
+              .catch((response) => {
+                let linterMessage = JSON.stringify(response.data.message).split(
+                  "\\n"
+                );
+                RoboticsReactComponents.MessageSystem.Alert.showAlert(
+                  errorMessage,
+                  "error"
+                );
+                console.log(`Received linter message ·${linterMessage}`);
+              });
+          });
+      };
+    } catch (error) {
+      console.log(error);
+      return 
+    }
   };
 
   const pause = () => {

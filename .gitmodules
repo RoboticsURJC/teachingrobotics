@@ -1,0 +1,3 @@
+[submodule "RoboticsInfrastructure"]
+	path = RoboticsInfrastructure
+	url = https://github.com/JdeRobot/RoboticsInfrastructure

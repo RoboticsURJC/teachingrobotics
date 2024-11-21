@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.db import models
-from .models import Exercise, World
+from .models import Exercise, Universe
 
 
 # Register your models here.
 
 admin.site.register(Exercise)
-admin.site.register(World)
+admin.site.register(Universe)
