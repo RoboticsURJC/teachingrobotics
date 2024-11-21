@@ -55,12 +55,15 @@ class GUI(MeasuringThreadingGUI):
 
     # Process incoming messages to the GUI
     def gui_in_thread(self, ws, message):
+        print("Message: ", message)
 
         # In this case, messages can be either acks or key strokes
         if "ack" in message:
+            print("*** Automove person")        # BORRAR
             with self.ack_lock:
                 self.ack = True
         else:
+            print("*** Teleop person")   # BORRAR
             # Get the current pose
             self.get_request.name = "PersonToControl"
             self.get_request.reference_frame = "world"

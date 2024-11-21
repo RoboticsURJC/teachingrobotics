@@ -3,7 +3,7 @@ import {Fragment} from "react";
 
 import "./css/FollowPersonRR.css";
 
-const FollowLineRR = (props) => {
+const FollowPersonRR = (props) => {
   return (
     <Fragment>
     {props.children}
@@ -11,4 +11,4 @@ const FollowLineRR = (props) => {
   );
 };
 
-export default FollowLineRR;
+export default FollowPersonRR;

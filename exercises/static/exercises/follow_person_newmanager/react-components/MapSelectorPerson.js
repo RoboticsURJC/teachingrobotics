@@ -9,9 +9,9 @@ const exerciseId = exerciseConfig.exercise_id;
 var ros_version = 2;
 
 export default function MapSelectorFollow(props) {
-
   const handleCircuitChange = (e) => {
     context.mapSelected = e.name
+    console.log(`Mundo seleccionado: ${e.name}`);     // BORRAR
     setSelectedCircuit(e);
     let full_config = JSON.parse(
       document.getElementById("exercise-config").textContent

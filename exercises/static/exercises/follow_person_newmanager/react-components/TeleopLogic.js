@@ -10,6 +10,7 @@ const PersonTeleop = () => {
 
   function listen_key() {
     window.addEventListener("keypress", function (event) {
+      console.log(`Key pressed: ${event.code}`);   // BORRAR
       if (event.code === "KeyS") {
         window.RoboticsExerciseComponents.commsManager.send("gui", "key_s");
       } else if (event.code === "KeyW") {
