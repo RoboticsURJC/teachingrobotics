@@ -59,24 +59,16 @@ class Map:
         offset_x = 171
         x = scale_x * x + offset_x
 
-        return x, y
+        return x, y, pose.yaw
 
     def getRobotCoordinatesWithNoise(self, noise_std=2.0):
-        x, y = self.getRobotCoordinates()
+        x, y, yaw = self.getRobotCoordinates()
         
         x_noisy = x + random.gauss(0, noise_std)
         y_noisy = y + random.gauss(0, noise_std)
+        yaw_noisy = yaw + random.gauss(0, noise_std)
 
-        return x_noisy, y_noisy
-
-    def getRobotAngle(self):
-        pose = self.pose_getter()
-        rt = pose.yaw
-
-        ty = math.cos(-rt) - math.sin(-rt)
-        tx = math.sin(-rt) + math.cos(-rt)
-
-        return tx, ty
+        return x_noisy, y_noisy, yaw_noisy
 
     # Function to reset
     def reset(self):

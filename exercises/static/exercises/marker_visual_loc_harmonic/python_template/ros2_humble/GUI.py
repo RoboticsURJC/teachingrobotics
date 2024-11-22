@@ -15,105 +15,56 @@ from HAL import getPose3d
 class GUI(MeasuringThreadingGUI):
 
     def __init__(self, host="ws://127.0.0.1:2303", freq=30.0):
+        super().__init__(host)
 
-        # Execution control vars
-        self.out_period = 1.0 / freq
-        self.right_image = None
-        self.left_image = None
+        self.image = None
         self.image_lock = threading.Lock()
-        self.ack = True
-        self.ack_frontend = True
-        self.ack_lock = threading.Lock()
-        self.running = True
 
         self.predict_pose = None
         self.map = Map(getPose3d)
-
-        self.host = host
-        # self.msg = {"image_right": "", "image_left": ""}
-        self.payload = {"image_right": "", "real_pose": "","noisy_pose": "", "estimate_pose": "" }
-
-        self.ideal_cycle = 80
-        self.real_time_factor = 0
-        self.frequency_message = {'brain': '', 'gui': '', 'rtf': ''}
-        self.iteration_counter = 0
+        
+        # Payload vars
+        self.payload = {"image": "", "real_pose": "","noisy_pose": "", "estimate_pose": "" }
 
         self.start()
 
-    # Process outcoming messages from the GUI
-    def gui_out_thread(self):
-        while self.running:
-            start_time = time.time()
-
-            # Check if a new image should be sent
-            with self.ack_lock:
-                with self.image_lock:
-                    if self.ack:
-                        if np.any(self.left_image) or np.any(self.right_image):
-                            self.update_gui()
-                            self.ack = False
-
-            # Maintain desired frequency
-            elapsed = time.time() - start_time
-            sleep_time = max(0, self.out_period - elapsed)
-            time.sleep(sleep_time)
-
     # Prepares and send image to the websocket server
     def update_gui(self):
-
-        # if np.any(self.left_image):
-        #     _, encoded_left_image = cv2.imencode(".JPEG", self.left_image)
-        #     b64_left = base64.b64encode(encoded_left_image).decode("utf-8")
-        #     shape_left = self.left_image.shape
-        # else:
-        #     b64_left = None
-        #     shape_left = 0
         pos_message = self.map.getRobotCoordinates()
-        ang_message = self.map.getRobotAngle()
-        pos_message = str(pos_message + ang_message)
+        pos_message = str(pos_message)
         self.payload["real_pose"] = pos_message
 
         n_pos_message = self.map.getRobotCoordinatesWithNoise()
-        n_pos_message = str(n_pos_message + ang_message)
+        n_pos_message = str(n_pos_message)
         self.payload["noisy_pose"] = n_pos_message
 
         if np.any(self.predict_pose):
-            p_pos_message = str(self.predict_pose + ang_message)
+            p_pos_message = str(self.predict_pose)
             self.payload["estimate_pose"] = p_pos_message
 
-        if np.any(self.right_image):
-            _, encoded_right_image = cv2.imencode(".JPEG", self.right_image)
-            b64_right = base64.b64encode(encoded_right_image).decode("utf-8")
-            shape_right = self.right_image.shape
+        if np.any(self.image):
+            _, encoded_image = cv2.imencode(".JPEG", self.image)
+            b64 = base64.b64encode(encoded_image).decode("utf-8")
+            shape = self.image.shape
         else:
-            b64_right = None
-            shape_right = 0
+            b64 = None
+            shape = 0
 
-        # payload_left = {
-        #     "image_left": b64_left,
-        #     "shape_left": shape_left,
-        # }
-        payload_right = {
-            "image_right": b64_right,
-            "shape_right": shape_right,
+        payload_img = {
+            "image": b64,
+            "shape": shape,
         }
-        # self.msg["image_left"] = json.dumps(payload_left)
-        self.payload["image_right"] = json.dumps(payload_right)
-        # self.msg["image_right"] = json.dumps(payload_right)
-        # self.msg["image_right"] = json.dumps(payload_right)
-        message = json.dumps(self.payload)
+
+        self.payload["image"] = json.dumps(payload_img)
+        message = json.dumps(self.msg)
         self.send_to_client(message)
 
     # Functions to set the next image to be sent
-    def setLeftImage(self, image):
+    def setImage(self, image):
         with self.image_lock:
-            self.left_image = image
-
-    def setRightImage(self, image):
-        with self.image_lock:
-            self.right_image = image
+            self.image = image
     
-    def setRobotPose(self, pose):
+    def setEstimatedRobotPose(self, pose):
         self.predict_pose = pose
 
 
@@ -125,10 +76,8 @@ start_console()
 
 # Expose the user functions
 def showImage(image):
-    gui.setRightImage(image)
+    gui.setImage(image)
 
-def showLeftImage(image):
-    gui.setLeftImage(image)
-
-def showRobotPose(pose):
-    gui.setRobotPose(pose)
+def showEstimatedPose(pose):
+    """Pose must be (x, y, yaw)"""
+    gui.setEstimatedRobotPose(pose)
