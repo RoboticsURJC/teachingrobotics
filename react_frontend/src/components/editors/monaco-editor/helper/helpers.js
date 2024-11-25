@@ -24,6 +24,7 @@ export const fetchFormatCode = async ({
         "Content-Type": "application/json",
         "X-CSRFToken": context.csrf,
       },
+
       body: JSON.stringify({
         code: monacoEditorSourceCode,
       }),
@@ -40,7 +41,7 @@ export const fetchFormatCode = async ({
   }
 };
 
-// post and response code format
+// post and response code analysis
 export const fetchAnalysisCode = async ({
   baseUrl,
   monacoEditorSourceCode,
@@ -51,7 +52,7 @@ export const fetchAnalysisCode = async ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": context.csrf 
+        "X-CSRFToken": context.csrf,
       },
       body: JSON.stringify({
         code: monacoEditorSourceCode,
@@ -170,4 +171,17 @@ export const snippetsBuilderV2 = ({
   });
 
   return snippets;
+};
+
+// local storage data
+export const setEditorSettingsWidgetsData = (data) => {
+  const data_string = JSON.stringify(data);
+  localStorage.setItem("editorSettingsWidgets", data_string);
+};
+
+export const getEditorSettingsWidgetsData = () => {
+  const data = localStorage.getItem("editorSettingsWidgets");
+
+  if (data) return JSON.parse(data);
+  return null;
 };

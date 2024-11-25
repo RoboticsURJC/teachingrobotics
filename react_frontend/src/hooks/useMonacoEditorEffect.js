@@ -89,6 +89,7 @@ export const useMonacoEditorCodeAnalysisEffect = ({
 
 // Code Format (with black)
 export const useMonacoEditorCodeFormatEffect = ({
+  editorRef,
   baseUrl,
   monacoEditorSourceCode,
   setMonacoEditorSourceCode,
@@ -96,6 +97,8 @@ export const useMonacoEditorCodeFormatEffect = ({
 }) => {
   // Use Effect for Black (code prettify/beautify)
   useEffect(() => {
+    if (!editorRef.current) return;
+
     const handleKeyDown = async (event) => {
       // Check if Ctrl+S is pressed
       if (event.ctrlKey && (event.key === "s" || event.key === "S")) {
@@ -114,13 +117,15 @@ export const useMonacoEditorCodeFormatEffect = ({
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    editorRef.current.getDomNode().addEventListener("keydown", handleKeyDown);
 
     // Clean up event
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      editorRef.current
+        .getDomNode()
+        .removeEventListener("keydown", handleKeyDown);
     };
-  }, [monacoEditorSourceCode]);
+  }, [editorRef, monacoEditorSourceCode]);
 };
 
 export const useMonacoEditorLineNumberDecorationsEffect = ({

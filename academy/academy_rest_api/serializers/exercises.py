@@ -12,7 +12,7 @@ class ExerciseSerializer(serializers.HyperlinkedModelSerializer):
 
 # code format serializer
 class CodeFormatSerializer(serializers.Serializer):
-    code = serializers.CharField()
+    code = serializers.CharField(required=True)
 
 # code analysis serializer
 class CodeAnalysisSerializer(serializers.Serializer):
