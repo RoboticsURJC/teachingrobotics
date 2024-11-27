@@ -56,7 +56,7 @@ class GUI(MeasuringThreadingGUI):
         }
 
         self.payload["image"] = json.dumps(payload_img)
-        message = json.dumps(self.msg)
+        message = json.dumps(self.payload)
         self.send_to_client(message)
 
     # Functions to set the next image to be sent

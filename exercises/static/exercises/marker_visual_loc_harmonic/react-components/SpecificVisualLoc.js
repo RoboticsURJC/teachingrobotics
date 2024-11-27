@@ -2,7 +2,6 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { drawImage } from "./helpers/showImageVisual";
 
-//TODO: add here your map
 import house from "../resources/images/map.png";
 
 import "./css/GUICanvas.css"
@@ -21,8 +20,7 @@ function SpecificVisualLoc(props) {
 
       var img = document.getElementById('gui-canvas'); 
       //or however you get a handle to the IMG
-      // TODO: Need to change this numbers
-      var width = (1013 / 300) / (1013 /img.clientWidth);
+      var width = (1012 / 300) / (1012 /img.clientWidth);
       var height = (1012 / 150) / (1012 /img.clientHeight);
 
       if (updateData.real_pose) {
