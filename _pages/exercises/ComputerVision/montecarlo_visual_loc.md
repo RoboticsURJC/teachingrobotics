@@ -113,9 +113,10 @@ while True:
 * `HAL.setW()` - to set the angular velocity
 * `HAL.getPose3d().x` - to get the position of the robot (x coordinate)
 * `HAL.getPose3d().y` - to obtain the position of the robot (y coordinate)
-* `HAL.getPose3d().yaw` - to get the orientation of the robot with regarding the map  
+* `HAL.getPose3d().yaw` - to get the orientation of the robot  
 * `GUI.showImage()` - allows you to view a debug image or with relevant information
-* `GUI.showParticles(particles)` - shows the particles on the map. It is necessary to pass a list of particles as an argument. Each particle must be a list with [positionx, positiony, angle].    
+* `GUI.showParticles(particles)` - shows the particles on the map. Accepts a list of particles as an argument. Each particle must be a list with [position_x, position_y, angle_in_radians, weight]. The values must be in gazebo world coordinate system.    
+* `GUI.showPosition(x, y, yaw)` - shows the estimated user position in the map view in blue. Accepts a list with [position_x, position_y, angle_in_radians]. The values must be in gazebo world coordinate system. The map view will also show the real position of the robot in red, so you can compare how good your algorithm is.
 
 
 ## Theory
