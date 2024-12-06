@@ -70,7 +70,7 @@ The aim of this practical is to develop a localization algorithm based on the pa
 * `GUI.getMap(url)` - Returns a numpy array with the image data in a 3 dimensional array (R, G, B, A). The image is 1012x1012. The instruction to get the map is
 
 ```python
-array = GUI.getMap('/resources/exercises/montecarlo_laser_loc/mapgrannyannie.png')
+array = GUI.getMap('/resources/exercises/montecarlo_laser_loc/images/mapgrannyannie.png')
 ```
 
 ### Types conversion
