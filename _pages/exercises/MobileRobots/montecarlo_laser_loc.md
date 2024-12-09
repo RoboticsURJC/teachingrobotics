@@ -59,6 +59,8 @@ The aim of this practical is to develop a localization algorithm based on the pa
 * `HAL.getPose3d().y` - to get the Y coordinate of the robot
 * `HAL.getPose3d().yaw` - to get the orientation of the robot
 
+* `HAL.getOdom()` - to get the approximated position of the robot (with noise)
+
 * `HAL.getBumperData().state` - To establish if the robot has crashed or not. Returns a 1 if the robot collides and a 0 if it has not crashed.
 * `HAL.getBumperData().bumper` - If the robot has crashed, it turns to 1 when the crash occurs at the center of the robot, 0 when it occurs at its right and 2 if the collision is at its left.
 * `HAL.getLaserData()` - It allows to obtain the data of the laser sensor, which consists of 180 pairs of values ​​(0-180º, distance in meters).
