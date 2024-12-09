@@ -10,7 +10,7 @@ toc_label: "TOC installation"
 toc_icon: "cog"
 ---
 
-**Robotics Academy** supports Linux (Ubuntu 18.04, 20.04, 22.04 and other distributions), MacOS and Windows.
+**Robotics Academy** supports Linux (Ubuntu 18.04, 20.04, 22.04, 24.04 and other distributions), MacOS and Windows.
 
 
 <a name="installation"></a>
@@ -28,15 +28,16 @@ The installation of ROS, Gazebo, etc. has been greatly simplified, as all the re
 
 1. Download [Docker](https://docs.docker.com/get-docker/) **(minimum version of docker-py: 5.0.3)**.
 
-2. Pull the current distribution of RoboticsBackend **(currently version 4.6.14)**:
+2. Pull the current distribution of Robotics Academy and of Robotics Academy Database **(currently version 5.4.3)**:
 
 ```bash
-docker pull jderobot/robotics-backend:latest
+docker pull jderobot/robotics-database:latest
+docker pull jderobot/robotics-academy:latest
 ```
 
 - In order to obtain optimal performance, Docker should be using multiple CPU cores. In case of Docker for Mac or Docker for Windows, the VM should be assigned a greater number of cores.
 
-- It is recommended to use the latest image. However, older distributions of RoboticsBackend can be found [here](https://hub.docker.com/r/jderobot/robotics-backend/tags).
+- It is recommended to use the latest image. However, older distributions of Robotics Academy can be found [here](https://hub.docker.com/r/jderobot/robotics-academy/tags).
 
 ## Windows Users
 
@@ -50,42 +51,56 @@ Windows users should choose WSL 2 backend Docker installation if possible, as it
 
     ![WSL integration](/RoboticsAcademy/assets/images/user_guide/wsl-integration-docker.png)
 
-4. Pull the current distribution of RoboticsBackend **(currently version 4.6.12)**:
+4. Pull the current distribution of Robotics Academy and of Robotics Academy Database **(currently version 5.4.3)**:
 
 ```bash
-docker pull jderobot/robotics-backend:latest
+docker pull jderobot/robotics-database:latest
+docker pull jderobot/robotics-academy:latest
 ```
 
 - In order to obtain optimal performance, Docker should be using multiple CPU cores. In case of Docker for Mac or Docker for Windows, the VM should be assigned a greater number of cores.
 
-- It is recommended to use the latest image. However, older distributions of RoboticsBackend can be found [here](https://hub.docker.com/r/jderobot/robotics-backend/tags).
+- It is recommended to use the latest image. However, older distributions of Robotics Academy can be found [here](https://hub.docker.com/r/jderobot/robotics-academy/tags).
 
 ## MacOs (PLACEHOLDER!)
 
-* Remember to add minium docker version to run a RoboticsBackend.
+* Remember to add minium docker version to run a Robotics Academy.
 
 <a name="launch"></a>
-# 2. How to launch a RoboticsBackend container?
+# 2. How to launch a Robotics Academy container?
+
+* Launch databases
+
+```bash
+docker run --hostname my-postgres --name academy_db -d\
+    -e POSTGRES_DB=academy_db \
+    -e POSTGRES_USER=user-dev \
+    -e POSTGRES_PASSWORD=robotics-academy-dev \
+    -e POSTGRES_PORT=5432 \
+    -d -p 5432:5432 \
+    jderobot/robotics-database:latest
+```
+
 
 * Start a new docker container of the image and keep it running in the background:
 * The priority order is: NVIDIA -> Intel -> Only CPU
 
 ```bash
-docker run --rm -it $(nvidia-smi >/dev/null 2>&1 && echo "--gpus all" || echo "") --device /dev/dri -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
+docker run --rm -it $(nvidia-smi >/dev/null 2>&1 && echo "--gpus all" || echo "") --device /dev/dri -p 6080:6080 -p 1108:1108 -p 7163:7163 -p 7164:7164 --link academy_db jderobot/robotics-academy:latest
 ```
 
 ## Advanced Instructions on Linux
 
 - **NVIDIA:** For NVIDIA GPUs, acceleration can be achieved by [installing the nvidia-container-runtime package](https://docs.docker.com/config/containers/resource_constraints/#gpu), and then running the **auto** command above.
 
-- **Only Intel:**
+- **Integrated GPU**
 ```bash
-docker run --rm -it --device /dev/dri -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
+docker run --rm -it --device /dev/dri -p 6080:6080 -p 1108:1108 -p 7163:7163 -p 7164:7164 --link academy_db jderobot/robotics-academy:latest
 ```
 
 - **Only CPU:** 
 ```bash
-docker run --rm -it -p 7164:7164 -p 6080:6080 -p 1108:1108 -p 7163:7163 jderobot/robotics-backend
+docker run --rm -it -p 6080:6080 -p 1108:1108 -p 7163:7163 -p 7164:7164 --link academy_db jderobot/robotics-academy:latest
 ```
 
 ## Windows
