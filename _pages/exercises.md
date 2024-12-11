@@ -130,6 +130,17 @@ feature_row:
     status: "prototype"
     order: 2;
 
+  - image_path: /assets/images/exercises/marker_based_visual_loc/marker_teaser.png
+    alt: "Marker Based Visual Loc"
+    title: "Marker Based Visual Loc"
+    excerpt: "Visual localization using April-tags."
+    url: "/exercises/ComputerVision/marker_visual_loc"
+    btn_class: "btn--danger"
+    btn_label: "Go!"
+    version_label: "btn--success"
+    status: "prototype"
+    order: 2;
+
   - image_path: /assets/images/exercises/position_control/position_control_teaser.png
     alt: "Position Control"
     title: "Position Control"
