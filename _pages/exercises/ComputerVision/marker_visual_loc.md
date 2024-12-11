@@ -124,7 +124,7 @@ The intrinsic parameters are used in:
 
     Projection Matrix (P): Converts 3D world coordinates to 2D image coordinates.
 
-{% include gallery caption="Matrix" %}
+{% include matrix caption="Matrix" %}
 
 ### AprilTag Detection
 
@@ -134,7 +134,7 @@ The detection process includes:
 - Decoding: Analyzing the binary pattern to extract the tag's unique ID.
 - Pose Estimation: Computing the 6-DoF pose of the tag with respect to the camera.
 
-{% include gallery caption="Exampletag" %}
+{% include exampletag caption="Exampletag" %}
 
 ### PnP (Perspective-n-Point)
 
