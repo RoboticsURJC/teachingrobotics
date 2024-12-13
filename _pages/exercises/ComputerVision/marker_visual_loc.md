@@ -116,6 +116,34 @@ AprilTags are fiducial markers similar to QR codes but designed for robust detec
 - Robustness to noise, partial occlusion, and perspective distortions.
 - Easy decoding to obtain a unique ID and retrieve the tag's known position in the environment.
 
+Example code for apriltags detection:
+```python
+import GUI
+import HAL
+import apriltag
+import cv2
+
+detector = apriltag.Detector()
+
+while True:
+    img = HAL.getImage()
+
+    img_grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    result = detector.detect(img_grey)
+```
+
+result is in the form of:
+
+```
+[DetectionBase(tag_family='tag36h11', tag_id=2, hamming=0, goodness=0.0, decision_margin=98.58241271972656, homography=array([[ -1.41302664e-01,   1.08428082e+00,   1.67512900e+01],
+   [ -8.75899366e-01,   1.50245469e-01,   1.70532040e+00],
+   [ -4.89183533e-04,   2.12210247e-03,   6.02052342e-02]]), center=array([ 278.23643912,   28.32511859]), corners=array([[ 269.8939209 ,   41.50381088],
+   [ 269.57183838,   11.79248142],
+   [ 286.1383667 ,   15.84242821],
+   [ 286.18066406,   43.48323059]])),
+DetectionBase(tag_family='tag36h11', ... etc
+```
+
 ### Camera Model and Calibration
 
 Before detecting AprilTags, the camera used to observe the environment must be calibrated. Camera calibration provides intrinsic parameters like focal length and optical center, which are critical for accurate pose estimation. A camera model is typically represented using the pinhole camera model with distortion corrections.
@@ -144,12 +172,11 @@ Given the 3D coordinates of the tag and their corresponding 2D image points (wit
 
 ## Contributors
 
-- Contributors: [Jose María Cañas](https://github.com/jmplaza), [David Duro](https://github.com/dduro2020)    
-- Maintained by [David Duro](https://github.com/dduro2020)     
-
+- Contributors: [Jose María Cañas](https://github.com/jmplaza), [David Duro](https://github.com/dduro2020), [Javier Izquierdo](https://github.com/javizqh).
 
 ## References
 
+[https://pyimagesearch.com/2020/11/02/apriltag-with-python/](https://pyimagesearch.com/2020/11/02/apriltag-with-python/)
 [https://en.wikipedia.org/wiki/Perspective-n-Point](https://en.wikipedia.org/wiki/Perspective-n-Point)
 [https://april.eecs.umich.edu/software/apriltag](https://april.eecs.umich.edu/software/apriltag)
 [https://ftc-docs.firstinspires.org/en/latest/apriltag/vision_portal/apriltag_pose/apriltag-pose.html](https://ftc-docs.firstinspires.org/en/latest/apriltag/vision_portal/apriltag_pose/apriltag-pose.html)
