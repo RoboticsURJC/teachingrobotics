@@ -57,22 +57,23 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
   && rosdep init \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Gazebo 11
-RUN sudo rosdep fix-permissions \
-  && rosdep update \
-  && apt-get update && apt-get install -q -y \
-    ros-${ROS_DISTRO}-gazebo* \
-    ros-${ROS_DISTRO}-ros-gz-* \
-    gstreamer1.0-plugins-bad \
-    gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-ugly \
-    gstreamer1.0-libav \
-    libgstreamer-plugins-base1.0-dev \
-    libimage-exiftool-perl \
-  && apt-get -y autoremove \
-  && apt-get clean autoclean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN mkdir ~/.gazebo && touch ~/.gazebo/gui.ini
+# Install gazebo11
+RUN add-apt-repository ppa:openrobotics/gazebo11-gz-cli
+RUN apt-get update && apt-get install -y \
+        gazebo11 \
+        ros-humble-gazebo-ros-pkgs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Gazebo Harmonic
+RUN apt-get update \
+    && wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
+    && apt-get update && apt-get install -y -q \
+        gz-harmonic \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+        ros-humble-ros-gzharmonic \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install VNC
 # Xorg segfault error mitigation
@@ -146,7 +147,7 @@ RUN python3.10 -m pip install \
     argparse==1.4.0 coverage==6.2 cerberus==1.3.4 empy==3.3.4 jinja2==3.0.3 kconfiglib==14.1.0 \
     matplotlib==3.0.* numpy==1.24.3 nunavut==1.1.0 packaging==21.3 pkgconfig==1.5.5 pyros-genmsg==0.5.8 \
     pyulog==1.0.1 pyyaml==5.4.1 requests==2.31.0 serial==0.0.97 six==1.16.0 toml==0.10.2 psutil==5.9.0 \
-    onnxruntime==1.15.0 Pillow==9.0.1 opencv-python==4.5.5.64 netron seaborn==0.11.2 watchdog==2.1.5 utm==0.7.0 psycopg2
+    onnxruntime==1.15.0 Pillow==9.0.1 opencv-python==4.5.5.64 netron seaborn==0.11.2 watchdog==2.1.5 utm==0.7.0 psycopg2 pyapriltags
 
 # monaco editor
 RUN python3.10 -m pip install black==24.10.0

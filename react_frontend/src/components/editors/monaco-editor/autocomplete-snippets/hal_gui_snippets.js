@@ -673,6 +673,97 @@ export const guiAndHalAutoCompleteObj = {
     hal: [
       {
         type: "method",
+        label: "setV()",
+        code: "setV()",
+        descriptions: "Set the linear speed.",
+      },
+      {
+        type: "method",
+        label: "setW()",
+        code: "setW()",
+        descriptions: "Set the angular velocity.",
+      },
+      {
+        type: "method",
+        label: "getPose3d().x",
+        code: "getPose3d().x",
+        descriptions: "Get the position of the robot (x coordinate).",
+      },
+      {
+        type: "method",
+        label: "getPose3d().y",
+        code: "getPose3d().y",
+        descriptions: "Obtain the position of the robot (y coordinate).",
+      },
+      {
+        type: "method",
+        label: "getPose3d().yaw",
+        code: "getPose3d().yaw",
+        descriptions:
+          "Get the orientation of the robot with regarding the map.",
+      },
+      {
+        type: "method",
+        label: "getOdom()",
+        code: "getOdom()",
+        descriptions:
+          "Get the orientation of the robot with noise regarding the map.",
+      },
+      {
+        type: "method",
+        label: "getLaserData()",
+        code: "getLaserData()",
+        descriptions:
+          "Obtain laser sensor data It is composed of 180 pairs of values: (0-180º distance in meters).",
+      },
+      {
+        type: "method",
+        label: "getBumperData()",
+        code: "getBumperData()",
+        descriptions:
+          "If the robot has crashed, it turns to 1 when the crash occurs at the center of the robot, 0 when it occurs at its right and 2 if the collision is at its left.",
+      },
+    ],
+    gui: [
+      {
+        type: "method",
+        label: "showPosition(x, y, angle)",
+        code: "showPosition(x, y, angle)",
+        descriptions: "Shows the position on the map.",
+      },
+      {
+        type: "method",
+        label: "getMap(url)",
+        code: "getMap(url)",
+        descriptions:
+          "Returns a numpy array with the image data in a 3 dimensional array (R, G, B, A). The URL of the Vacuum Cleaner.",
+      },
+      {
+        type: "method",
+        label: "poseToMap(x_prime, y_prime, yaw_prime)",
+        code: "poseToMap(x_prime, y_prime, yaw_prime)",
+        descriptions:
+          "Returns the map coordinates of the given pose.",
+      },
+      {
+        type: "method",
+        label: "mapToPose(x, y, yaw)",
+        code: "mapToPose(x, y, yaw)",
+        descriptions:
+          "Returns the pose of the given map coordinates.",
+      },
+      {
+        type: "method",
+        label: "showParticles(particles)",
+        code: "showParticles(particles)",
+        descriptions: "Shows the particles on the map.",
+      },
+    ],
+  },
+  _montecarlo_visual_loc: {
+    hal: [
+      {
+        type: "method",
         label: "getImage()",
         code: "getImage()",
         descriptions: "Get the image.",
@@ -712,6 +803,12 @@ export const guiAndHalAutoCompleteObj = {
     gui: [
       {
         type: "method",
+        label: "showPosition(x, y, angle)",
+        code: "showPosition(x, y, angle)",
+        descriptions: "Shows the position on the map.",
+      },
+      {
+        type: "method",
         label: "showImage()",
         code: "showImage()",
         descriptions:
@@ -725,4 +822,60 @@ export const guiAndHalAutoCompleteObj = {
       },
     ],
   },
+  _marker_visual_loc: {
+    hal: [
+      {
+        type: "method",
+        label: "getImage()",
+        code: "getImage()",
+        descriptions: "Get the image.",
+      },
+      {
+        type: "method",
+        label: "setV()",
+        code: "setV()",
+        descriptions: "Set the linear speed.",
+      },
+      {
+        type: "method",
+        label: "setW()",
+        code: "setW()",
+        descriptions: "Set the angular velocity.",
+      },
+      {
+        type: "method",
+        label: "getPose3d().x",
+        code: "getPose3d().x",
+        descriptions: "Get the position of the robot (x coordinate).",
+      },
+      {
+        type: "method",
+        label: "getPose3d().y",
+        code: "getPose3d().y",
+        descriptions: "Obtain the position of the robot (y coordinate).",
+      },
+      {
+        type: "method",
+        label: "getPose3d().yaw",
+        code: "getPose3d().yaw",
+        descriptions:
+          "Get the orientation of the robot with regarding the map.",
+      },
+    ],
+    gui: [
+      {
+        type: "method",
+        label: "showEstimatedPose((x, y, angle))",
+        code: "showEstimatedPose((x, y, angle))",
+        descriptions: "Shows the estimated position on the map.",
+      },
+      {
+        type: "method",
+        label: "showImage()",
+        code: "showImage()",
+        descriptions:
+          "Allows you to view a debug image or with relevant information.",
+      }
+    ],
+  }
 };

@@ -2,10 +2,11 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import houseMap from "../resources/images/mapgrannyannie.png";
 import Vacuum from "../resources/images/vacuum.svg";
+import { drawImage } from "./helpers/showImageMontecarlo"
 
 import "./css/GUICanvas.css";
 
-function SpecificMontecarloLaserLoc(props) {
+function SpecificMontecarloVisualLoc(props) {
   const [vacuumPose, setVacuumPose] = React.useState(null)
   const [userPose, setUserPose] = React.useState(null)
   const [userParticles, setParticles] = React.useState([])
@@ -35,6 +36,15 @@ function SpecificMontecarloLaserLoc(props) {
 
     const callback = (message) => {
       const updateData = message.data.update;
+      
+      // Lógica para manejar la imágen
+      if (updateData.image) {
+        const image = JSON.parse(updateData.image)
+        if (image.image) {
+            drawImage(updateData);
+        }
+      }
+      
       // Lógica para manejar el mapa
       var img = document.getElementById('exercise-img'); 
       var width = (1012 / 300) / (1012 /img.clientWidth);
@@ -136,13 +146,14 @@ function SpecificMontecarloLaserLoc(props) {
           )})
         }
       </div>
+      <canvas className="image" id="gui_canvas_right" style={{left: "50%"}}/>
     </div>
   );
 }
 
 
-SpecificMontecarloLaserLoc.propTypes = {
+SpecificMontecarloVisualLoc.propTypes = {
   circuit: PropTypes.string,
 };
 
-export default SpecificMontecarloLaserLoc
+export default SpecificMontecarloVisualLoc

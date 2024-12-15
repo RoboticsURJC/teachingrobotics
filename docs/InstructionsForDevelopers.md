@@ -276,6 +276,8 @@ There are a three python packages to help the development of a new exercise:
 
 For knowing how to use each package, please follow the links in the list above.
 
+It is also necessary to add the template for the frontend in the folder exercises/templates/exercises.
+
 Then, create the entry in database/exercise/db.sql. This can be achieved in 2 ways, changing it directly on the database or using Django Web Admin:
 1)  Launch the docker as normal.
 2)  Access http://127.0.0.1:7164/admin/ on a browser and log in with "user" and "pass".
