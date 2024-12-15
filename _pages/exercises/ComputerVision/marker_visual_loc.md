@@ -130,9 +130,15 @@ The detection process includes:
 
 {% include gallery id="exampletag" caption="Exampletag" %}
 
+The tags are always found at a 7.3 meters in height.
+
 ### PnP (Perspective-n-Point)
 
 Given the 3D coordinates of the tag and their corresponding 2D image points (without z), the robot's pose can be estimated using algorithms like Direct Linear Transformation (DLT) or iterative methods (e.g., Levenberg-Marquardt).
+
+### Rotation and Translation matrix
+
+The rotation and translation matrixes can be extracted from the [sdf files](https://github.com/JdeRobot/RoboticsInfrastructure/blob/humble-devel/CustomRobots/turtlebot3/models/turtlebot3_waffle/model.sdf) that describe the turtlebot 3 waffle robot.
 
 ## Contributors
 
