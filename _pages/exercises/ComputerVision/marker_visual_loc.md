@@ -44,7 +44,7 @@ The goal of this exercise is to estimate the position and orientation (pose) of 
 * `from GUI import GUI` - to import the GUI (Graphical User Interface) library class. This class contains the functions used to view the debugging information, like image widgets.
 * `HAL.getImage()` - to get the image
 * `GUI.showImage()` - allows you to view a debug image or with relevant information
-* `GUI.showRobotPose((x, y, yaw))` - allows you to view your estimate pose in the map
+* `GUI.showEstimatedPose((x, y, yaw))` - allows you to view your estimate pose in the map
 * `HAL.setV()` - to set the linear speed
 * `HAL.setW()` - to set the angular velocity
 
