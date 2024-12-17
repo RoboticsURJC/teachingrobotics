@@ -156,6 +156,8 @@ The apriltags are set at 0.8 meters in height.
 
 Given the 3D coordinates of the tag and their corresponding 2D image points (without z), the robot's pose can be estimated using algorithms like Direct Linear Transformation (DLT) or iterative methods (e.g., Levenberg-Marquardt).
 
+Here is the documentation of PnP in [OpenCV](https://docs.opencv.org/3.4/d5/d1f/calib3d_solvePnP.html).
+
 ### Rotation and Translation matrix
 
 The rotation and translation matrixes can be extracted from the [sdf files](https://github.com/JdeRobot/RoboticsInfrastructure/blob/humble-devel/CustomRobots/turtlebot3/models/turtlebot3_waffle/model.sdf) that describe the turtlebot 3 waffle robot.
