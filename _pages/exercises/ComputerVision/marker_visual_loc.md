@@ -48,6 +48,10 @@ The goal of this exercise is to estimate the position and orientation (pose) of 
 * `HAL.setV()` - to set the linear speed
 * `HAL.setW()` - to set the angular velocity
 
+* `HAL.getOdom().x` - to get the approximated X coordinate of the robot (with noise)
+* `HAL.getOdom().y` - to get the approximated XY coordinate of the robot (with noise)
+* `HAL.getOdom().yaw` - to get the approximated orientation position of the robot (with noise)
+
 ## Theory
 
 ### Visual Markers: AprilTags
