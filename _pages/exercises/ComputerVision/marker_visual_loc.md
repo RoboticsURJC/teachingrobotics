@@ -134,6 +134,8 @@ The detection process includes:
 
 {% include gallery id="exampletag" caption="Exampletag" %}
 
+The apriltags are set at 0.8 meters in height.
+
 ### PnP (Perspective-n-Point)
 
 Given the 3D coordinates of the tag and their corresponding 2D image points (without z), the robot's pose can be estimated using algorithms like Direct Linear Transformation (DLT) or iterative methods (e.g., Levenberg-Marquardt).
