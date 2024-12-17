@@ -56,6 +56,18 @@ The red robot represents the user estimated position.
 * `HAL.getOdom().y` - to get the approximated XY coordinate of the robot (with noise)
 * `HAL.getOdom().yaw` - to get the approximated orientation position of the robot (with noise)
 
+### Load tags position
+```python
+import yaml
+from pathlib import Path
+
+conf = yaml.safe_load(
+    Path("/resources/exercises/marker_visual_loc/apriltags_poses.yaml").read_text()
+)
+
+tags = conf["tags"]
+```
+
 ## Theory
 
 ### Visual Markers: AprilTags
