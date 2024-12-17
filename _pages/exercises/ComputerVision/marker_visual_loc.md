@@ -36,6 +36,10 @@ exampletag:
 
 The goal of this exercise is to estimate the position and orientation (pose) of a robot in a 2D space by detecting and analyzing visual markers, specifically AprilTags. This process involves using computer vision to identify the tags in the robot's environment and mathematical methods to derive its relative pose with respect to the detected tags.
 
+The green robot represents the real position.
+The blue robot represents the position from the odometry (with noise).
+The red robot represents the user estimated position.
+
 {% include gallery caption="Gallery" %}
 
 ## Robot API
