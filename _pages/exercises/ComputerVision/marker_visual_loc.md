@@ -150,7 +150,7 @@ The detection process includes:
 
 {% include gallery id="exampletag" caption="Exampletag" %}
 
-The apriltags are set at 0.8 meters in height.
+The apriltags are set at 0.8 meters in height and have a size of 0.3 x 0.3 meters.
 
 ### PnP (Perspective-n-Point)
 
