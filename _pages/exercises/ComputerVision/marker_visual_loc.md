@@ -140,6 +140,21 @@ Projection Matrix (P): Converts 3D world coordinates to 2D image coordinates.
 
 {% include gallery id="matrix" caption="Matrix" %}
 
+You can use the following code to define the default parameters:
+
+```python
+        size = image.shape
+        focal_length = size[1]
+        center = (size[1] / 2, size[0] / 2)
+
+        matrix_camera = np.array(
+            [[focal_length, 0, center[0]], [0, focal_length, center[1]], [0, 0, 1]],
+            dtype="double",
+        )
+
+        dist_coeffs = np.zeros((4, 1))
+```
+
 ### AprilTag Detection
 
 The detection process includes:
