@@ -177,6 +177,12 @@ Here is the documentation of PnP in [OpenCV](https://docs.opencv.org/3.4/d5/d1f/
 
 The rotation and translation matrixes can be extracted from the [sdf files](https://github.com/JdeRobot/RoboticsInfrastructure/blob/humble-devel/CustomRobots/turtlebot3/models/turtlebot3_waffle/model.sdf) that describe the turtlebot 3 waffle robot.
 
+### More Resources
+
+You may find interesting the following resources:
+
+* [Accuracy analysis of marker-based 3D visual localization](https://gsyc.urjc.es/jmplaza/papers/jornadasautomatica2016-pnp.pdf)
+
 ## Contributors
 
 * Contributors: [Jose María Cañas](https://github.com/jmplaza), [David Duro](https://github.com/dduro2020), [Javier Izquierdo](https://github.com/javizqh).
