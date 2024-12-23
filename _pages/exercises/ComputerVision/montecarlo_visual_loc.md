@@ -124,6 +124,9 @@ while True:
 * `GUI.poseToMap(x, y, yaw)`- converts a gazebo world coordinate system position to a map pixel.
 * `GUI.getMap(url)` - Returns a numpy array with the image data in a 3 dimensional array (R, G, B, A). The image is 1012x1012. The instruction to get the map is
 
+```python
+array = GUI.getMap('/resources/exercises/montecarlo_laser_loc/images/mapgrannyannie.png')
+```
 
 
 ## Theory
