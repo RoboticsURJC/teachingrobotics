@@ -29,6 +29,8 @@ exampletag:
     image_path: /assets/images/exercises/marker_based_visual_loc/example_tag.png
     alt: "April Tag"
     title: "April Tag"
+
+youtubeId1: PtdqHpICMy0
 ---
 
 
@@ -182,6 +184,10 @@ The rotation and translation matrixes can be extracted from the [sdf files](http
 You may find interesting the following resources:
 
 * [Accuracy analysis of marker-based 3D visual localization](https://gsyc.urjc.es/jmplaza/papers/jornadasautomatica2016-pnp.pdf)
+
+## Videos
+
+{% include youtubePlayer.html id=page.youtubeId1 %}
 
 ## Contributors
 
