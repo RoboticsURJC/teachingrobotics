@@ -59,11 +59,9 @@ class GUI(MeasuringThreadingGUI):
 
         # In this case, messages can be either acks or key strokes
         if "ack" in message:
-            print("*** Automove person")        # BORRAR
             with self.ack_lock:
                 self.ack = True
-        else:
-            print("*** Teleop person")   # BORRAR
+        if "Key" in message:
             # Get the current pose
             self.get_request.name = "PersonToControl"
             self.get_request.reference_frame = "world"
@@ -72,23 +70,23 @@ class GUI(MeasuringThreadingGUI):
             pose = get_future.result().state.pose
 
             # Define movement and rotation parameters
-            mov_dist = 0.1  # meters (default for forward movement)
-            rot_angle = 0.17 # radians (default for left rotation)
+            mov_dist = 0.01  # meters (default for forward movement)
+            rot_angle = 0.01 # radians (default for left rotation)
 
             # Check for movement direction 
-            if  "key_s" in message:     
+            if  "KeyS" in message:     
                 mov_dist *= -1          # reverse for backward movement
-            if "key_d" in message:      
+            elif "KeyD" in message:      
                 rot_angle *= -1         # reverse for right rotation
 
             # Update accordingly
-            if "key_w" in message or "key_s" in message:   # forward or backward movement
+            if "KeyW" in message or "KeyS" in message:   # forward or backward movement
                 siny_cosp = 2 * (pose.orientation.w * pose.orientation.z - pose.orientation.x * pose.orientation.y)
                 cosy_cosp = 1 - 2 * (pose.orientation.y * pose.orientation.y + pose.orientation.z * pose.orientation.z)
                 yaw = atan2(siny_cosp, cosy_cosp)
                 pose.position.x += mov_dist * sin(yaw)
                 pose.position.y += -mov_dist * cos(yaw)
-            elif "key_a" in message or "key_d" in message:  # turning movement
+            elif "KeyA" in message or "KeyD" in message:  # turning movement
                 w = pose.orientation.w * cos(rot_angle / 2) - pose.orientation.z * sin(rot_angle / 2)
                 x = pose.orientation.x * cos(rot_angle / 2) + pose.orientation.y * sin(rot_angle / 2)
                 y = pose.orientation.y * cos(rot_angle / 2) - pose.orientation.x * sin(rot_angle / 2)

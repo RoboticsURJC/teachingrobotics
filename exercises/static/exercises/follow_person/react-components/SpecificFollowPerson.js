@@ -6,7 +6,6 @@ function SpecificFollowPerson(props) {
   React.useEffect(() => {
     const callback = (message) => {
       console.log(message);
-      console.log(`** Context: ${context}`);   // BORRAR
       if (message.data.update.image) {
         console.log("New img received");
         const image = JSON.parse(message.data.update.image);
@@ -32,12 +31,12 @@ function SpecificFollowPerson(props) {
   }, []);
 
   function listen_key(event) {
-
     // Agregar el event listener
     window.addEventListener("keypress", function (event) {
       console.log(`Key pressed: ${event.code}`);   // BORRAR
       if (['KeyS', 'KeyW', 'KeyA', 'KeyD', 'KeyX'].includes(event.code)) {
         window.RoboticsExerciseComponents.commsManager.send("gui", event.code);
+        console.log(`Key send: ${event.code}`);   // BORRAR
       }
   
     });   
@@ -45,13 +44,10 @@ function SpecificFollowPerson(props) {
 
   React.useEffect(() => {
     const callback = (message) => {
-      console.log(`** Message: ${message}`); // BORRAR
-      console.log(`** Context: ${context}`);   // BORRAR
-      if (message.data.state === "application_running") {
-        if (context.mapSelected === "follow_person_teleop") {
-          listen_key()
-        }           
-      }
+      console.log(`Map selected: ${context.mapSelected}`);   // BORRAR
+      if (context.mapSelected === "Follow Person Teleop") {
+        listen_key()
+      }           
     }
 
     window.RoboticsExerciseComponents.commsManager.subscribe(
