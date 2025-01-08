@@ -104,7 +104,14 @@ docker run --rm -it -p 6080:6080 -p 1108:1108 -p 7163:7163 -p 7164:7164 --link a
 ```
 
 ## Windows
-For Windows machines, GPU acceleration to Docker can be implemented with WSL2 as per instructions given [here](https://docs.docker.com/desktop/gpu/#using-nvidia-gpus-with-wsl2).
+For Windows machines, acceleration can be achieved for NVIDIA GPUs if a valid CUDA installation is available. Useful docs for proper installation of WSL2 + CUDA + Docker Desktop:
+- [WSL2 + CUDA](https://learn.microsoft.com/en-us/windows/ai/directml/gpu-cuda-in-wsl)
+- [WSL2 + Docker Desktop](https://docs.docker.com/desktop/features/wsl/)
+
+Once these requirements are ready, you should be able to run Robotics Academy with GPU acceleration as follows:
+```bash
+docker run --rm -it --gpus all -v /usr/lib/wsl:/usr/lib/wsl -e LD_LIBRARY_PATH=/usr/lib/wsl/lib --device /dev/dri -p 6080:6080 -p 1108:1108 -p 7163:7163 -p 7164:7164 --link academy_db jderobot/robotics-academy:latest
+```
 
 ### Tips for Docker
 
