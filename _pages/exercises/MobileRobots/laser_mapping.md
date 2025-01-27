@@ -40,6 +40,12 @@ The objective of this practice is to implement the logic of a navigation algorit
 * `HAL.getOdom().x` - to get the approximated X coordinate of the robot (with noise)
 * `HAL.getOdom().y` - to get the approximated Y coordinate of the robot (with noise)
 * `HAL.getOdom().yaw` - to get the approximated orientation position of the robot (with noise)
+* `HAL.getOdom2().x` - to get the approximated X coordinate of the robot (with more noise than getOdom)
+* `HAL.getOdom2().y` - to get the approximated Y coordinate of the robot (with more noise than getOdom)
+* `HAL.getOdom2().yaw` - to get the approximated orientation position of the robot (with more noise than getOdom)
+* `HAL.getOdom3().x` - to get the approximated X coordinate of the robot (with even more noise than getOdom)
+* `HAL.getOdom3().y` - to get the approximated Y coordinate of the robot (with even more noise than getOdom)
+* `HAL.getOdom3().yaw` - to get the approximated orientation position of the robot (with even more noise than getOdom)
 * `HAL.motors.sendW()` - to set the angular velocity
 * `HAL.motors.sendV()` - to set the linear velocity
 * `HAL.getLaserData()` - to get the data of the LIDAR. Which consists of 360 values
