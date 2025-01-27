@@ -44,7 +44,7 @@ The objective of this practice is to implement the logic of a navigation algorit
 * `HAL.motors.sendV()` - to set the linear velocity
 * `HAL.getLaserData()` - to get the data of the LIDAR. Which consists of 360 values
 * `GUI.poseToMap(x, y, yaw)` - converts a gazebo world coordinate system position to a map pixel.
-* `GUI.setUserMap(map)` - shows the user built map on the user interface. It represents the values of the field that have been assigned to the array passed as a parameter. Accepts as input a two-dimensional uint8 numpy array whose values can range from 0 to 255 (grayscale). The array must be 770 pixels high and 1300 pixels wide.
+* `GUI.setUserMap(map)` - shows the user built map on the user interface. It represents the values of the field that have been assigned to the array passed as a parameter. Accepts as input a two-dimensional uint8 numpy array whose values can range from 0 to 255 (grayscale). The array must be 970 pixels high and 1500 pixels wide.
 
 ## Theory
 Implementation of laser mapping for a vacuum is the basic requirement for this exercise. First, lets see how mapping with known possitions works.
