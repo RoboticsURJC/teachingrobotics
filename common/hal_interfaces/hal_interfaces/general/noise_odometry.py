@@ -127,7 +127,7 @@ def odometry2Pose3D(odom):
     return pose
 
 def gaussian_noise(x,mu=0.0,std=0.1, noise_level = 0.01):
-    noise = np.random.normal(mu, std) * 0.01
+    noise = np.random.normal(mu, std) * noise_level
     x_noisy = x + noise
     return x_noisy 
 
